@@ -88,12 +88,7 @@ typings/
 
 # next.js build output
 .next
-
 example
-web/public
-web/src
-web/package.json
-web/package-lock.json
 .npmignore
 .gitignore
 .idea

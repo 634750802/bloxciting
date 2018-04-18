@@ -1,23 +1,24 @@
 <template>
-  <div v-if="blogContent" v-html="blogContent"></div>
+  <article class="md" v-if="blogContent" v-html="blogContent"></article>
   <div v-else></div>
 </template>
 
 <script>
-  import marked from 'marked'
 
   export default {
     name: 'Blog',
     props: {
-      data: {
-        type: String,
-        required: true
-      }
+      data: String
     },
     computed: {
       blogContent () {
-        return marked(this.data)
+        return this.data
       }
+    },
+    mounted () {
+      const hash = location.hash
+      location.hash = '#'
+      location.hash = hash
     }
   }
 </script>

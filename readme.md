@@ -1,6 +1,10 @@
 # Bloxciting
 
-Bloxciting is an simple exciting blog system.
+> Bloxciting is an simple exciting blog system.
+
+Bloxciting serves markdown file as blog and directory as category.
+It will watch file changes and update etag for caching.
+It use client-rendering to display blog content.
 
 ## Usage
 
@@ -8,7 +12,17 @@ Write config file `bloxciting.config.json`.
 
 ```bash
 npm i bloxciting
-require('bloxciting') // It will start the http server.
+```
+
+```js
+// index.js
+const bloxciting = require('bloxciting')
+
+bloxciting.serveAssets()
+bloxciting.serveHomePage()
+bloxciting.setLoggerLevel('trace')
+
+bloxciting.start()
 ```
 
 Then you can write blogs in markdown.
@@ -17,7 +31,7 @@ See /example
 
 ## Config File
 
-```node
+```js
 // bloxciting.config.json
 {
   "app": {
@@ -31,3 +45,13 @@ See /example
   }
 }
 ```
+
+## API
+
+. | .
+- | :-
+Method | GET
+URL | /api/v1/blogs/path/to/blogOrCategory
+Returns | String, Object
+Description | If returns string, the content is blog content(in html). Otherwise, the content is a category object.
+

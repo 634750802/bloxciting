@@ -1,10 +1,11 @@
 {
   "name": "bloxciting",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A zero-code personal blog using markdown.",
   "main": "index.js",
   "scripts": {
-    "example": "cd example && node ../index.js",
+    "example": "cd example && node index.js",
+    "dev": "export NODE_ENV=development && npm run example",
     "web-serve": "cd web && vue-cli-service serve --open",
     "web-build": "cd web && vue-cli-service build",
     "web-lint": "cd web && vue-cli-service lint"
@@ -13,16 +14,24 @@
   "license": "ISC",
   "dependencies": {
     "chokidar": "^2.0.3",
-    "koa": "^2.5.0"
+    "highlightjs": "^9.10.0",
+    "koa": "^2.5.0",
+    "koa-logger": "^3.2.0",
+    "log4js": "^2.5.3"
   },
   "devDependencies": {
+    "@types/highlight.js": "^9.12.2",
+    "@types/log4js": "^2.3.5",
+    "@types/marked": "^0.3.0",
     "@vue/cli-plugin-babel": "^3.0.0-beta.6",
     "@vue/cli-plugin-eslint": "^3.0.0-beta.6",
     "@vue/cli-service": "^3.0.0-beta.6",
     "axios": "^0.18.0",
+    "highlight.js": "^9.12.0",
     "less": "^3.0.1",
     "less-loader": "^4.1.0",
     "marked": "^0.3.19",
+    "mkdirp": "^0.5.1",
     "vue": "^2.5.13",
     "vue-template-compiler": "^2.5.13"
   },

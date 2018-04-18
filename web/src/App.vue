@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Header/>
-    <div class="container">
+    <Header ref="header"/>
+    <div class="container" :style="{transform: `translateY(${headerHeight})`}">
       <breadcrumbs/>
       <keep-alive>
         <blog v-if="type === 'blog'" :data="data"/>
@@ -20,7 +20,9 @@
   import NotFound from './components/NotFound'
   import Breadcrumbs from './components/Breadcrumbs'
 
-  Axios.interceptors.response.use(undefined, value => {
+  const api = Axios.create({baseURL: process.env.VUE_APP_BASE_URL || '/'})
+
+  api.interceptors.response.use(undefined, value => {
     return value
   })
 
@@ -30,7 +32,8 @@
       return {
         type: 'none',
         data: undefined,
-        categoryDescription: undefined
+        categoryDescription: undefined,
+        headerHeight: '80px'
       }
     },
     components: {
@@ -43,6 +46,10 @@
     async mounted () {
       this.reload()
       this.$router.$on('change', () => this.reload())
+      window.onresize = () => {
+        this.headerHeight = getComputedStyle(this.$refs.header.$el).height
+      }
+      this.headerHeight = getComputedStyle(this.$refs.header.$el).height
     },
     methods: {
       async reload () {
@@ -50,13 +57,13 @@
         this.data = undefined
         this.categoryDescription = undefined
         const path = location.pathname.replace(/\/$/, '')
-        const info = await Axios.get('/api/v1/blogs' + path)
+        const info = await api.get('/api/v1/blogs' + path)
         document.title = 'Loading'
         if (info.data) {
           document.title = 'D·Jagger - ' + path ? decodeURI(path.substr(path.lastIndexOf('/') + 1)) : 'Home'
           if (typeof info.data === 'object') {
             this.type = 'category'
-            this.categoryDescription = (await Axios.get('/api/v1/blogs' + path + '/index')).data
+            this.categoryDescription = (await api.get('/api/v1/blogs' + path + '/index')).data
             this.data = info.data
           } else {
             this.type = 'blog'
@@ -73,8 +80,10 @@
 <style lang="less" scoped>
   .container {
     max-width: 768px;
-    margin: 80px auto auto;
+    margin: 0 auto auto;
     padding: 20px;
     box-sizing: border-box;
+    transition: transform .25s;
+    z-index: 0;
   }
 </style>

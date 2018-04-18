@@ -1,0 +1,67 @@
+.md {
+  header {
+    font-family: "Times New Roman", Arial, Verdana, sans-serif;
+    font-style: italic;
+    h1 {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    .meta-info {
+      font-size: 12px;
+      font-weight: lighter;
+      color: lightgray;
+      &::after {
+        content: " ";
+        display: block;
+        border-top: 1px dashed lightgray;
+        width: 100%;
+        margin-top: 8px;
+      }
+      .last-modified {
+        margin-left: 12px;
+      }
+    }
+  }
+
+  .header-level {
+    color: lightgray;
+    font-weight: lighter;
+    font-size: 90%;
+
+    &::before {
+      content: ""
+    }
+    &::after {
+      content: " ➣ "
+    }
+  }
+
+  pre {
+    code {
+      overflow: scroll;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  p {
+    line-height: 1.5;
+    code {
+      color: slateblue;
+      margin-left: 2px;
+      margin-right: 2px;
+    }
+  }
+
+  blockquote {
+    //background: #657b83;
+    font-style: italic;
+    font-weight: bold;
+    color: gray;
+  }
+
+  .table-wrapper {
+    width: 100%;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+}
